@@ -1,13 +1,14 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 
-import "bootstrap/dist/css/bootstrap.min.css";
-import { Card } from "react-bootstrap";
+import { Card, Button } from "react-bootstrap";
 
 const ProductDetail = (props) => {
     const [product, setProduct] = useState({});
     const {id} = useParams();
+    const navigate = useNavigate();
+    const {removeFromDom} = props;
 
     useEffect(() => {
         axios.get("http://localhost:8000/api/products/" + id)
@@ -18,6 +19,15 @@ const ProductDetail = (props) => {
             .catch(err => console.log(err))
     }, []);
 
+    const deleteProduct = (productId) => {
+        axios.delete("http://localhost:8000/api/products/" + productId)
+            .then(res => {
+                removeFromDom(productId)
+                navigate("/");
+            })
+            .catch(err => console.log(err))
+    }
+
     return(
         <Card className='mt-4'>
             <Card.Header>Title: {product.title}</Card.Header>
@@ -25,6 +35,10 @@ const ProductDetail = (props) => {
                 <p>Price: ${product.price}</p>
                 <p>Description: {product.description}</p>
             </Card.Body>
+            <Card.Footer>
+                <Link to={`/edit/${product._id}`}><Button variant='outline-primary'>Edit</Button></Link>
+                <Button variant='outline-danger ms-3' onClick={(e) => {deleteProduct(product._id)}}>Delete</Button>
+            </Card.Footer>
         </Card>
     )
 }

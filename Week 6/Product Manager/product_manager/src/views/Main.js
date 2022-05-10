@@ -1,16 +1,22 @@
 import React, {useState} from 'react';
 
+import { Row, Col } from "react-bootstrap";
+
 import ProductForm from '../components/ProductForm';
 import ProductList from '../components/ProductList';
 
 const Main = (props) => {
-    const [products, setProducts] = useState([]);
+    const {products, setProducts, removeFromDom} = props;
 
     return(
-        <div>
-            <ProductForm products={products} setProducts={setProducts} />
-            <ProductList products={products} setProducts={setProducts} />
-        </div>
+        <Row>
+            <Col>
+                <ProductForm products={products} setProducts={setProducts} />
+            </Col>
+            <Col>
+                <ProductList products={products} setProducts={setProducts} removeFromDom={removeFromDom} />
+            </Col>
+        </Row>
     )
 }
 

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-import "bootstrap/dist/css/bootstrap.min.css";
 import { Card, Form, Button } from "react-bootstrap";
 
 const ProductForm = (props) => {
