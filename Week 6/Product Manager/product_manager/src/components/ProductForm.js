@@ -1,36 +1,21 @@
 import React, { useState } from "react";
-import axios from "axios";
 
 import { Card, Form, Button } from "react-bootstrap";
 
 const ProductForm = (props) => {
-	const { products, setProducts } = props;
-	const [title, setTitle] = useState("");
-	const [price, setPrice] = useState("");
-	const [description, setDescription] = useState("");
+	const { cardHeader, initialTitle, initialPrice, initialDescription, onSubmitProp } = props;
+	const [title, setTitle] = useState(initialTitle);
+	const [price, setPrice] = useState(initialPrice);
+	const [description, setDescription] = useState(initialDescription);
 
 	const onSubmitHandler = (e) => {
 		e.preventDefault();
-		axios
-			.post("http://localhost:8000/api/products", {
-				title,
-				price,
-				description,
-			})
-			.then((res) => {
-				console.log(res);
-				console.log(res.data);
-				setProducts([...products, res.data]);
-				setTitle("");
-				setPrice("");
-				setDescription("");
-			})
-			.catch((err) => console.log(err));
+		onSubmitProp({title, price, description});
 	};
 
 	return (
-		<Card className="mt-4">
-			<Card.Header>Product Manager</Card.Header>
+		<Card className="mt-4 mb-3">
+			<Card.Header>{cardHeader}</Card.Header>
 			<Card.Body>
 				<Form onSubmit={onSubmitHandler}>
 					<Form.Group>
@@ -61,7 +46,7 @@ const ProductForm = (props) => {
 						/>
 					</Form.Group>
 					<Button className="mt-3" variant="outline-primary" type="submit">
-						Create
+						Submit
 					</Button>
 				</Form>
 			</Card.Body>

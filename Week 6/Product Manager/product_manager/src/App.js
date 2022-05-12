@@ -12,16 +12,12 @@ import ProductUpdate from "./components/ProductUpdate";
 function App() {
 	const [products, setProducts] = useState([]);
 
-    const removeFromDom = productId => {
-        setProducts(products.filter(product => product._id != productId));
-	}
-
 	return (
 		<BrowserRouter>
 			<Container>
 				<Routes>
-					<Route element={<Main products={products} setProducts={setProducts} removeFromDom={removeFromDom} />} path="/" default />
-					<Route element={<ProductDetail removeFromDom={removeFromDom} />} path="/:id" />
+					<Route element={<Main products={products} setProducts={setProducts} />} path="/" default />
+					<Route element={<ProductDetail />} path="/:id" />
 					<Route element={<ProductUpdate />} path="/edit/:id" />
 				</Routes>
 			</Container>
