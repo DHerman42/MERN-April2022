@@ -7,19 +7,23 @@ class User {
 
 	makeDeposit(amount) {
 		this.accountBalance += amount;
+		return this;
 	}
 
 	makeWithdrawl(amount) {
 		this.accountBalance -= amount;
+		return this;
 	}
 
 	displayBalance() {
 		console.log(`User: ${this.name}, Balance: $${this.accountBalance}`);
+		return this;
 	}
 
 	transferMoney(otherUser, amount) {
 		this.accountBalance -= amount;
 		otherUser.makeDeposit(amount);
+		return this;
 	}
 }
 
@@ -27,24 +31,26 @@ const user1 = new User("user1", "email1");
 const user2 = new User("user2", "email2");
 const user3 = new User("user3", "email3");
 
-user1.makeDeposit(500);
-user1.makeDeposit(250);
-user1.makeDeposit(1000);
-user1.makeWithdrawl(750);
-user1.displayBalance();
+user1
+	.makeDeposit(500)
+	.makeDeposit(250)
+	.makeDeposit(1000)
+	.makeWithdrawl(750)
+	.displayBalance();
 
-user2.makeDeposit(450);
-user2.makeDeposit(945);
-user2.makeWithdrawl(225);
-user2.makeWithdrawl(473);
-user2.displayBalance();
+user2
+	.makeDeposit(450)
+	.makeDeposit(945)
+	.makeWithdrawl(225)
+	.makeWithdrawl(473)
+	.displayBalance();
 
-user3.makeDeposit(1500);
-user3.makeWithdrawl(145);
-user3.makeWithdrawl(321);
-user3.makeWithdrawl(123);
-user3.displayBalance();
+user3
+	.makeDeposit(1500)
+	.makeWithdrawl(145)
+	.makeWithdrawl(321)
+	.makeWithdrawl(123)
+	.displayBalance();
 
-user1.transferMoney(user3, 745);
-user1.displayBalance();
+user1.transferMoney(user3, 745).displayBalance();
 user3.displayBalance();
