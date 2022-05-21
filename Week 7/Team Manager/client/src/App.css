@@ -1,0 +1,8 @@
+.alignrow {
+  vertical-align: middle;
+}
+
+.fitcol{
+  white-space: nowrap;
+  width: 1%;
+}
